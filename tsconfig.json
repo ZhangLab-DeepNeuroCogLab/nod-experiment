@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    // ignore if type declaration is not available
+    // declare jatos as a global
+    "types": ["node", "jatos"],
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "Node",
+    "strict": false,
+    "resolveJsonModule": true,
+    // "isolatedModules": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
