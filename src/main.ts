@@ -9,12 +9,10 @@ import "./main.css";
 import {
   finalInstructions,
   instructions,
-  nextExperimentInstructions,
-  nextTrainingInstructions,
   thanksInstructions,
 } from "./instructions";
 import { experimentData } from "./training-data";
-import UnsupervisedDemoPlugin from "./unsupervised_demo";
+// import UnsupervisedDemoPlugin from "./unsupervised_demo";
 
 export const serverUrl = "https://novelobjects.sgp1.digitaloceanspaces.com";
 
@@ -39,16 +37,6 @@ const demoQuestions = {
     },
   ],
   duration: 10,
-};
-
-const unsupervisedDemo = {
-  type: UnsupervisedDemoPlugin,
-  images: [
-    "/images/demo/cube1.gif",
-    "/images/demo/cube2.gif",
-    "/images/demo/cube3.gif",
-  ].map((x) => `${serverUrl}${x}`),
-  duration: 15,
 };
 
 const cubeQuestions = {
@@ -93,13 +81,8 @@ async function runExperiment(set: number): Promise<any[]> {
 
   const trials = [
     {
-      type: UnsupervisedDemoPlugin,
-      duration: 75,
-      images: _.shuffle(_.flatten(data.unsupervised_list)),
-    },
-    {
       type: DemoPlugin,
-      duration: 30,
+      duration: 60,
       families: [
         { name: "Adams", images: data.train_list[0] },
         { name: "Bennings", images: data.train_list[1] },
@@ -107,18 +90,17 @@ async function runExperiment(set: number): Promise<any[]> {
     },
     {
       type: DemoPlugin,
-      duration: 15,
+      duration: 30,
       families: [{ name: "Clark", images: data.train_list[2] }],
     },
     {
       type: DemoPlugin,
-      duration: 15,
+      duration: 30,
       families: [{ name: "Davis", images: data.train_list[3] }],
     },
-
     {
       type: DemoPlugin,
-      duration: 15,
+      duration: 30,
       families: [{ name: "Evans", images: data.train_list[4] }],
     },
   ];
@@ -137,20 +119,17 @@ async function runExperiment(set: number): Promise<any[]> {
   let timeline = [
     instructions,
     preload,
-    unsupervisedDemo,
-    nextTrainingInstructions,
     demoQuestions,
     cubeQuestions,
     finalInstructions,
     trials[0],
-    nextExperimentInstructions,
-    trials[1],
     ...getQuestions(
       data.test_list[0],
       1,
       ["Adams", "Bennings"],
       data.curriculum
     ),
+    trials[1],
     ...getQuestions(
       data.test_list[1],
       2,
@@ -177,6 +156,8 @@ async function runExperiment(set: number): Promise<any[]> {
   return timeline;
 }
 
+// Choose from the available curriculums
+// 4, 15, 16, 37, 53, 55
 let set = 53;
 console.log(`Using curriculum set ${set}`);
 runExperiment(set).then((timeline) => {
