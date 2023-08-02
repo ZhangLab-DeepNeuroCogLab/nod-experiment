@@ -7,7 +7,7 @@ export interface TrainingData {
   curriculum: string[];
   train_list: string[][];
   test_list: string[][];
-  unsupervised_list: string[][];
+  // unsupervised_list: string[][];
 }
 
 export async function experimentData(set: number): Promise<TrainingData> {
@@ -21,12 +21,12 @@ export async function experimentData(set: number): Promise<TrainingData> {
     x.map((y) => `${originalServerUrl}/${y}.gif`)
   );
 
-  data.unsupervised_list = data.unsupervised_list.map((x, idx) =>
-    x.map(
-      (y) =>
-        `${originalServerUrl}/novel_rotating_gif_compressed/${data.curriculum[idx]}/${y}.gif`
-    )
-  );
+  // data.unsupervised_list = data.unsupervised_list.map((x, idx) =>
+  //   x.map(
+  //     (y) =>
+  //       `${originalServerUrl}/novel_rotating_gif_compressed/${data.curriculum[idx]}/${y}.gif`
+  //   )
+  // );
 
   let train_list = [];
   data.train_list.forEach((x) => {

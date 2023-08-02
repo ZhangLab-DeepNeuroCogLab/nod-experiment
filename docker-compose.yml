@@ -1,0 +1,11 @@
+version: '3'
+services:
+  jatos:
+    container_name: jatos-server
+    image: jatos/jatos:latest
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./jatos:/opt/docker/study_assets_root
+
